@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bücherschränke in Berlin</title>
+    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/5/50/Closed_Book_Icon.svg" sizes="any" type="image/svg+xml">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+          integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+          crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+            integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+            crossorigin=""></script>
+</head>
+<body>
+<div id="map" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; width: 100%;"></div>
+
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+    var map = L.map('map').setView([52.5200, 13.4047], 13);
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    var boxes = [[${boxes}]]
+    for (i = 0; i < boxes.length; i++) {
+        var box = boxes[i];
+        var marker = L.marker([box.coordinate.lat, box.coordinate.lon]).addTo(map);
+
+        var popupText = "<table><tbody><tr>";
+        if (box.imageUrl != null) {
+            popupText += "<td style='vertical-align: top;'><img style='padding-right: 10px;' src='https:" + box.imageUrl + "'></td>";
+        }
+        popupText += "<td style='vertical-align: top;'><h3>Lage</h3><span>" + box.address + "</span>"
+        if (box.type != null) {
+            popupText += "<h3>Ausführung</h3><span>" + box.type + "</span>"
+        }
+        if (box.comment != null) {
+            popupText += "</td></tr><tr>"
+            if (box.imageUrl != null) {
+                popupText += "<td colspan='2'>"
+            } else {
+                popupText += "<td>"
+            }
+            popupText += "<h3>Anmerkung</h3><span>" + box.comment + "</span>"
+        }
+        popupText += "</td></tr><tr>"
+        if (box.imageUrl != null) {
+            popupText += "<td colspan='2'>"
+        } else {
+            popupText += "<td>"
+        }
+        popupText += "<h3>Karten</h3><span>🧭 <a target='_blank' href='https://www.google.com/maps/search/?api=1&query=" + box.coordinate.lat + "," + box.coordinate.lon + "'>Google Maps</a></span>"
+        popupText += "</td></tr></tbody></table>"
+        marker.bindPopup(popupText);
+    }
+    /*]]>*/
+</script>
+</body>
+</html>
