@@ -1,5 +1,11 @@
 micronaut:
   server:
-    host: "0.0.0.0"
+    host: 0.0.0.0
   application:
     name: wikibook
+  router:
+    static-resources:
+      images:
+        enabled: true
+        paths: classpath:public/images
+        mapping: /images/**

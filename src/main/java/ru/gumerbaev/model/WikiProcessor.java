@@ -9,14 +9,11 @@ import ru.gumerbaev.data.Coordinate;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
-import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Singleton
 public class WikiProcessor {
-
-    private static final Logger LOG = Logger.getLogger(WikiProcessor.class.getName());
 
     public List<BookBox> parse() throws IOException {
         var url = "https://de.m.wikipedia.org/wiki/Liste_öffentlicher_Bücherschränke_in_Berlin";
@@ -25,7 +22,9 @@ public class WikiProcessor {
 
         return list.stream().map(it -> {
             var addrColumn = it.lastChild().outerHtml();
-            var addrString = Jsoup.parse(addrColumn).body().text().replace("⊙", "").trim();
+            var addrString = Jsoup.parse(addrColumn).body().text()
+                    .replace("⊙", "").replaceAll("\\[\\d+\\]", "")
+                    .replace("/", " / ").replace("  ", " ").trim();
             var coordPattern = Pattern.compile("(\\d{2}\\.\\d{4}).+(\\d{2}\\.\\d{4})");
             var coords = coordPattern.matcher(addrColumn);
             if (coords.find()) {
@@ -33,8 +32,10 @@ public class WikiProcessor {
                 String type = null;
                 String comment = null;
                 if (it.childNodes().size() == 11) {
-                    type = Jsoup.parse(it.childNode(2).outerHtml()).body().text().replaceAll("\\[\\d+\\]", "");
-                    comment = Jsoup.parse(it.childNode(8).outerHtml()).body().text().replaceAll("\\[\\d+\\]", "");
+                    type = Jsoup.parse(it.childNode(2).outerHtml()).body().text()
+                            .replaceAll("\\[\\d+\\]", "").trim();
+                    comment = Jsoup.parse(it.childNode(8).outerHtml()).body().text()
+                            .replaceAll("\\[\\d+\\]", "").trim();
                 }
                 return new BookBox(addrString,
                         img != null ? img.attr("src") : null,
@@ -42,8 +43,6 @@ public class WikiProcessor {
                         type == null || type.isBlank() ? null : type,
                         comment == null || comment.isBlank() ? null : comment);
             }
-
-            LOG.info(addrString);
             return null;
         }).filter(Objects::nonNull).collect(Collectors.toList());
     }
