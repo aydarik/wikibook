@@ -25,7 +25,7 @@
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
-        attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a> | <a href="https://de.wikipedia.org/wiki/Liste_öffentlicher_Bücherschränke_in_Berlin">Wikipedia</a>'
+        attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a> | <a href="https://de.wikipedia.org/wiki/Liste_öffentlicher_Bücherschränke_in_Berlin">Wikipedia</a> | <a href=\'https://www.iconfinder.com/iconsets/random-set-1\'>Icons</a>'
     }).addTo(map);
 
     const bookIcon = L.icon({
@@ -49,7 +49,7 @@
 
         let popupText = "<table><tbody><tr>";
         if (box.imageUrl != null) {
-            popupText += "<td style='vertical-align: top;'><img width='100px' src='https:" + box.imageUrl + "'></td>";
+            popupText += "<td style='vertical-align: top;'><img width='100px' src='https:" + box.imageUrl + "' alt='Photo'></td>";
         }
         popupText += "<td style='vertical-align: top;'><div style='font-weight: bold;'>" + box.address + "</div>"
         if (box.type != null) {

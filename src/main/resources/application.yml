@@ -9,3 +9,6 @@ micronaut:
         enabled: true
         paths: classpath:public/images
         mapping: /images/**
+  caches:
+    boxes:
+      expire-after-write: 1h

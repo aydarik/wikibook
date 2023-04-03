@@ -15,10 +15,10 @@ dependencies {
     implementation("io.micronaut:micronaut-http-client")
     implementation("io.micronaut:micronaut-jackson-databind")
     implementation("io.micronaut:micronaut-validation")
+    implementation("io.micronaut.cache:micronaut-cache-caffeine")
     implementation("io.micronaut.views:micronaut-views-thymeleaf")
     implementation("jakarta.annotation:jakarta.annotation-api")
 
-    // https://mvnrepository.com/artifact/org.jsoup/jsoup
     implementation("org.jsoup:jsoup:1.15.4")
 
     runtimeOnly("ch.qos.logback:logback-classic")

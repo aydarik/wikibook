@@ -1,5 +1,7 @@
 package ru.gumerbaev.model;
 
+import io.micronaut.cache.annotation.CacheConfig;
+import io.micronaut.cache.annotation.Cacheable;
 import jakarta.inject.Singleton;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
@@ -13,8 +15,10 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Singleton
+@CacheConfig("boxes")
 public class WikiProcessor {
 
+    @Cacheable
     public List<BookBox> parse() throws IOException {
         var url = "https://de.m.wikipedia.org/wiki/Liste_öffentlicher_Bücherschränke_in_Berlin";
         var doc = Jsoup.connect(url).get();
@@ -23,7 +27,8 @@ public class WikiProcessor {
         return list.stream().map(it -> {
             var addrColumn = it.lastChild().outerHtml();
             var addrString = Jsoup.parse(addrColumn).body().text()
-                    .replace("⊙", "").replaceAll("\\[\\d+\\]", "")
+                    .replace("⊙", "").replaceAll("\\[\\d+]", "")
+                    .replaceAll("\\d+\\.+\\d+\\.+\\d+", "")
                     .replace("/", " / ").replace("  ", " ").trim();
             var coordPattern = Pattern.compile("(\\d{2}\\.\\d{4}).+(\\d{2}\\.\\d{4})");
             var coords = coordPattern.matcher(addrColumn);
@@ -33,9 +38,11 @@ public class WikiProcessor {
                 String comment = null;
                 if (it.childNodes().size() == 11) {
                     type = Jsoup.parse(it.childNode(2).outerHtml()).body().text()
-                            .replaceAll("\\[\\d+\\]", "").trim();
+                            .replaceAll("\\[\\d+]", "")
+                            .replace("/", " / ").replace("  ", " ").trim();
                     comment = Jsoup.parse(it.childNode(8).outerHtml()).body().text()
-                            .replaceAll("\\[\\d+\\]", "").trim();
+                            .replaceAll("\\[\\d+]", "")
+                            .replace("/", " / ").replace("  ", " ").trim();
                 }
                 return new BookBox(addrString,
                         img != null ? img.attr("src") : null,
