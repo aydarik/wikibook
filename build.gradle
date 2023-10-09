@@ -1,9 +1,9 @@
 plugins {
     id("com.github.johnrengelman.shadow") version "7.1.2"
-    id("io.micronaut.application") version "3.7.7"
+    id("io.micronaut.application") version "3.7.10"
 }
 
-version = "0.1"
+version = "0.2"
 group = "ru.gumerbaev"
 
 repositories {
@@ -19,7 +19,7 @@ dependencies {
     implementation("io.micronaut.views:micronaut-views-thymeleaf")
     implementation("jakarta.annotation:jakarta.annotation-api")
 
-    implementation("org.jsoup:jsoup:1.15.4")
+    implementation("org.jsoup:jsoup:1.16.1")
 
     runtimeOnly("ch.qos.logback:logback-classic")
 }
