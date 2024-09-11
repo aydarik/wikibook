@@ -15,5 +15,3 @@
 ## Feature jetty-server documentation
 
 - [Micronaut Jetty Server documentation](https://micronaut-projects.github.io/micronaut-servlet/1.0.x/guide/index.html#jetty)
-
-

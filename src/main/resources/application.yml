@@ -6,9 +6,8 @@ micronaut:
   router:
     static-resources:
       images:
-        enabled: true
-        paths: classpath:public/images
-        mapping: /images/**
+        mapping: /images/*
+        paths: classpath:images
   caches:
     boxes:
-      expire-after-write: 1h
+      expire-after-write: 3h
