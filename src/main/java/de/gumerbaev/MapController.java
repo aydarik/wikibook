@@ -9,15 +9,21 @@ import jakarta.inject.Inject;
 import de.gumerbaev.model.WikiProcessor;
 
 import java.io.IOException;
+import java.net.URI;
 
-@Controller("/berlin")
+@Controller
 public class MapController {
     @Inject
     WikiProcessor processor;
 
     @View("map")
-    @Get("/")
-    public HttpResponse index() throws IOException {
+    @Get("/berlin")
+    public HttpResponse<?> berlin() throws IOException {
         return HttpResponse.ok(CollectionUtils.mapOf("boxes", processor.parse()));
+    }
+
+    @Get("/")
+    public HttpResponse<?> root() {
+        return HttpResponse.redirect(URI.create("/berlin"));
     }
 }

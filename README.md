@@ -30,7 +30,8 @@ Start the application with:
 ./gradlew run
 ```
 
-Then open [http://localhost:8080/berlin/](http://localhost:8080/berlin/) in a browser.
+Then open [http://localhost:8080/berlin](http://localhost:8080/berlin) in a browser.
+The root URL `/` redirects to this endpoint.
 
 The server listens on all interfaces (`0.0.0.0`) and port `8080` by default. The
 port can be changed with Micronaut's standard environment variable:
@@ -53,8 +54,8 @@ docker build -t wikibook .
 docker run --rm -p 8080:8080 wikibook
 ```
 
-Open [http://localhost:8080/berlin/](http://localhost:8080/berlin/) after the
-container starts.
+Open [http://localhost:8080/berlin](http://localhost:8080/berlin) after the
+container starts. The root URL `/` redirects there as well.
 
 ## Project structure
 
