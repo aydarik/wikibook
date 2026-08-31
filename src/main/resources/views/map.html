@@ -10,12 +10,12 @@
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Leaflet CSS & JS -->
-    <link crossorigin="" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+    <link crossorigin="" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
           integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
           rel="stylesheet"/>
     <script crossorigin=""
             integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
-            src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+            src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
     <style>
         .leaflet-popup-content-wrapper {
@@ -143,13 +143,23 @@
         marker.bindPopup(popupContent);
     });
 
+    let userMarker = null;
+    let userCircle = null;
+
     function locateUser() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
                 const lat = position.coords.latitude;
                 const lon = position.coords.longitude;
 
-                L.marker([lat, lon], {
+                if (userMarker) {
+                    map.removeLayer(userMarker);
+                }
+                if (userCircle) {
+                    map.removeLayer(userCircle);
+                }
+
+                userMarker = L.marker([lat, lon], {
                     icon: L.icon({
                         iconUrl: '/images/gps.svg',
                         iconSize: [40, 40],
@@ -157,7 +167,7 @@
                     })
                 }).addTo(map);
 
-                L.circle([lat, lon], {
+                userCircle = L.circle([lat, lon], {
                     color: '#1a73e8',
                     fillColor: '#1a73e8',
                     fillOpacity: 0.15,

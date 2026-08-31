@@ -1,4 +1,4 @@
-FROM openjdk:25-slim
+FROM eclipse-temurin:25-jre-alpine
 
 COPY ./build/libs/wikibook-0.4-all.jar /wikibook.jar
 
