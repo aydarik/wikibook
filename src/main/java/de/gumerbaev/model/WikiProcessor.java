@@ -1,11 +1,11 @@
-package ru.gumerbaev.model;
+package de.gumerbaev.model;
 
+import de.gumerbaev.data.BookBox;
+import de.gumerbaev.data.Coordinate;
 import io.micronaut.cache.annotation.CacheConfig;
 import io.micronaut.cache.annotation.Cacheable;
 import jakarta.inject.Singleton;
 import org.jsoup.Jsoup;
-import ru.gumerbaev.data.BookBox;
-import ru.gumerbaev.data.Coordinate;
 
 import java.io.IOException;
 import java.util.List;

@@ -42,7 +42,7 @@
     });
 
     const boxes = [[${boxes}]]
-    for (i = 0; i < boxes.length; i++) {
+    for (let i = 0; i < boxes.length; i++) {
         const box = boxes[i];
         const icon = box.imageUrl != null ? photoIcon : bookIcon;
         const marker = L.marker([box.coordinate.lat, box.coordinate.lon], {icon: icon}).addTo(map);

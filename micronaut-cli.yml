@@ -1,5 +1,5 @@
 applicationType: default
-defaultPackage: ru.gumerbaev
+defaultPackage: de.gumerbaev
 testFramework: junit
 sourceLanguage: java
 buildTool: gradle

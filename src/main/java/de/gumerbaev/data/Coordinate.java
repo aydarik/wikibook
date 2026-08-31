@@ -1,4 +1,4 @@
-package ru.gumerbaev.data;
+package de.gumerbaev.data;
 
 public record Coordinate(double lat, double lon) {
 

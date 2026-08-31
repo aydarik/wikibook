@@ -1,4 +1,4 @@
-package ru.gumerbaev.data;
+package de.gumerbaev.data;
 
 public record BookBox(String address, String imageUrl, Coordinate coordinate, String type, String comment) {
 
