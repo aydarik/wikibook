@@ -19,7 +19,7 @@ public class WikiProcessor {
 
     @Cacheable
     public List<BookBox> parse() throws IOException {
-        var url = "https://de.m.wikipedia.org/wiki/Liste_öffentlicher_Bücherschränke_in_Berlin";
+        var url = "https://de.wikipedia.org/wiki/Liste_öffentlicher_Bücherschränke_in_Berlin";
         var doc = Jsoup.connect(url).get();
         var list = doc.getElementsByTag("table").first().getElementsByTag("tbody").first().children();
 
